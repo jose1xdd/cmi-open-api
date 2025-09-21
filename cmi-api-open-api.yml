@@ -1,0 +1,4244 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "FastAPI",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/cmi-apigateway/login": {
+      "post": {
+        "tags": [
+          "Usuario"
+        ],
+        "summary": "Login",
+        "operationId": "login_cmi_apigateway_login_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cmi-apigateway/{user_email}/password/update": {
+      "patch": {
+        "tags": [
+          "Usuario"
+        ],
+        "summary": "Update Password",
+        "operationId": "update_password_cmi_apigateway__user_email__password_update_patch",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "user_email",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "User Email"
+            }
+          },
+          {
+            "name": "path_param_key",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "user_email",
+              "title": "Path Param Key"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePassword"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EstadoResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cmi-apigateway/refresh": {
+      "post": {
+        "tags": [
+          "Usuario"
+        ],
+        "summary": "Refresh",
+        "operationId": "refresh_cmi_apigateway_refresh_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RefreshRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cmi-apigateway/password/recovery": {
+      "post": {
+        "tags": [
+          "Usuario"
+        ],
+        "summary": "Password Recovery",
+        "operationId": "password_recovery_cmi_apigateway_password_recovery_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RecoveryPassword"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EstadoResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cmi-apigateway/password/reset": {
+      "post": {
+        "tags": [
+          "Usuario"
+        ],
+        "summary": "Password Reset",
+        "operationId": "password_reset_cmi_apigateway_password_reset_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResetPassword"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EstadoResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cmi-apigateway/create": {
+      "post": {
+        "tags": [
+          "Usuario"
+        ],
+        "summary": "Create",
+        "operationId": "create_cmi_apigateway_create_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UsuarioCreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EstadoResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/cmi-apigateway/delete/{email}": {
+      "delete": {
+        "tags": [
+          "Usuario"
+        ],
+        "summary": "Delete",
+        "operationId": "delete_cmi_apigateway_delete__email__delete",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Email"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EstadoResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cmi-apigateway/": {
+      "get": {
+        "tags": [
+          "Usuario"
+        ],
+        "summary": "Get Usuario",
+        "operationId": "get_usuario_cmi_apigateway__get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1,
+              "title": "Page"
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "default": 10,
+              "title": "Page Size"
+            }
+          },
+          {
+            "name": "email",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "email"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Email"
+            }
+          },
+          {
+            "name": "personaId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Personaid"
+            }
+          },
+          {
+            "name": "rol",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/app__persistence__model__enum__EnumRol"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Rol"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedUsuario"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cmi-apigateway/{user_email}": {
+      "get": {
+        "tags": [
+          "Usuario"
+        ],
+        "summary": "Get Personas",
+        "operationId": "get_personas_cmi_apigateway__user_email__get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "user_email",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "User Email"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UsuarioOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Usuario"
+        ],
+        "summary": "Update User",
+        "operationId": "update_user_cmi_apigateway__user_email__put",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "user_email",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "User Email"
+            }
+          },
+          {
+            "name": "path_param_key",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "user_email",
+              "title": "Path Param Key"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UsuarioUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EstadoResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cmi-apigateway/personas/create": {
+      "post": {
+        "tags": [
+          "Persona"
+        ],
+        "summary": "Create Persona",
+        "operationId": "create_persona_cmi_apigateway_personas_create_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PersonaCreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EstadoResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/cmi-apigateway/personas/{id}": {
+      "put": {
+        "tags": [
+          "Persona"
+        ],
+        "summary": "Update Persona",
+        "operationId": "update_persona_cmi_apigateway_personas__id__put",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PersonaUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EstadoResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Persona"
+        ],
+        "summary": "Delete Persona",
+        "operationId": "delete_persona_cmi_apigateway_personas__id__delete",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EstadoResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cmi-apigateway/personas/": {
+      "get": {
+        "tags": [
+          "Persona"
+        ],
+        "summary": "List Personas",
+        "operationId": "list_personas_cmi_apigateway_personas__get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1,
+              "title": "Page"
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "default": 10,
+              "title": "Page Size"
+            }
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Id"
+            }
+          },
+          {
+            "name": "tipoDocumento",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Tipodocumento"
+            }
+          },
+          {
+            "name": "nombre",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Nombre"
+            }
+          },
+          {
+            "name": "apellido",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Apellido"
+            }
+          },
+          {
+            "name": "sexo",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Sexo"
+            }
+          },
+          {
+            "name": "idFamilia",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Idfamilia"
+            }
+          },
+          {
+            "name": "idParcialidad",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Idparcialidad"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedPersonas"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cmi-apigateway/personas/{id_persona}": {
+      "get": {
+        "tags": [
+          "Persona"
+        ],
+        "summary": "Get Persona",
+        "operationId": "get_persona_cmi_apigateway_personas__id_persona__get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id_persona",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id Persona"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PersonaOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cmi-apigateway/personas/assing-family": {
+      "patch": {
+        "tags": [
+          "Persona"
+        ],
+        "summary": "Assing Family Users",
+        "operationId": "assing_family_users_cmi_apigateway_personas_assing_family_patch",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssingFamilia"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AsignacionFamiliaResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/cmi-apigateway/personas/upload-excel": {
+      "post": {
+        "tags": [
+          "Persona"
+        ],
+        "summary": "Upload Excel",
+        "operationId": "upload_excel_cmi_apigateway_personas_upload_excel_post",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_upload_excel_cmi_apigateway_personas_upload_excel_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CargaMasivaResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/cmi-apigateway/familias/create": {
+      "post": {
+        "tags": [
+          "Familia"
+        ],
+        "summary": "Create Familia",
+        "operationId": "create_familia_cmi_apigateway_familias_create_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FamiliaCreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EstadoResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/cmi-apigateway/familias/{id_familia}": {
+      "delete": {
+        "tags": [
+          "Familia"
+        ],
+        "summary": "Delete Familia",
+        "operationId": "delete_familia_cmi_apigateway_familias__id_familia__delete",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id_familia",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Id Familia"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EstadoResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Familia"
+        ],
+        "summary": "Get Familia",
+        "operationId": "get_familia_cmi_apigateway_familias__id_familia__get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id_familia",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Id Familia"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PersonaOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cmi-apigateway/familias/": {
+      "get": {
+        "tags": [
+          "Familia"
+        ],
+        "summary": "List Familias",
+        "operationId": "list_familias_cmi_apigateway_familias__get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1,
+              "title": "Page"
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 10,
+              "title": "Page Size"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedFamilias"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cmi-apigateway/familias/upload-excel": {
+      "post": {
+        "tags": [
+          "Familia"
+        ],
+        "summary": "Upload Excel",
+        "operationId": "upload_excel_cmi_apigateway_familias_upload_excel_post",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_upload_excel_cmi_apigateway_familias_upload_excel_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CargaMasivaResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/cmi-apigateway/parcialidad/create": {
+      "post": {
+        "tags": [
+          "Parcialidad"
+        ],
+        "summary": "Create Parcialidad",
+        "operationId": "create_parcialidad_cmi_apigateway_parcialidad_create_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ParcialidadCreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EstadoResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/cmi-apigateway/parcialidad/{id}": {
+      "delete": {
+        "tags": [
+          "Parcialidad"
+        ],
+        "summary": "Delete Parcialidad",
+        "operationId": "delete_parcialidad_cmi_apigateway_parcialidad__id__delete",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EstadoResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Parcialidad"
+        ],
+        "summary": "Update Parcialidad",
+        "operationId": "update_parcialidad_cmi_apigateway_parcialidad__id__put",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ParcialidadCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EstadoResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cmi-apigateway/parcialidad/": {
+      "get": {
+        "tags": [
+          "Parcialidad"
+        ],
+        "summary": "List Parcialidades",
+        "operationId": "list_parcialidades_cmi_apigateway_parcialidad__get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1,
+              "title": "Page"
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "default": 10,
+              "title": "Page Size"
+            }
+          },
+          {
+            "name": "nombre",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Nombre"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedParcialidad"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cmi-apigateway/parcialidad/{id_parcialidad}": {
+      "get": {
+        "tags": [
+          "Parcialidad"
+        ],
+        "summary": "Get Parcialidad",
+        "operationId": "get_parcialidad_cmi_apigateway_parcialidad__id_parcialidad__get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id_parcialidad",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id Parcialidad"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ParcialidadOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cmi-apigateway/parcialidad/upload-excel": {
+      "post": {
+        "tags": [
+          "Parcialidad"
+        ],
+        "summary": "Upload Excel",
+        "description": "Endpoint del API Gateway para cargar parcialidades vía Excel.",
+        "operationId": "upload_excel_cmi_apigateway_parcialidad_upload_excel_post",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_upload_excel_cmi_apigateway_parcialidad_upload_excel_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/cmi-apigateway/index/index/create": {
+      "post": {
+        "tags": [
+          "Index"
+        ],
+        "summary": "Create Publicacion",
+        "operationId": "create_publicacion_cmi_apigateway_index_index_create_post",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_create_publicacion_cmi_apigateway_index_index_create_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EstadoResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/cmi-apigateway/index/index/{publicacion_id}/fotos": {
+      "post": {
+        "tags": [
+          "Index"
+        ],
+        "summary": "Agregar Fotos",
+        "operationId": "agregar_fotos_cmi_apigateway_index_index__publicacion_id__fotos_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "publicacion_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Publicacion Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_agregar_fotos_cmi_apigateway_index_index__publicacion_id__fotos_post"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EstadoResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cmi-apigateway/index/index": {
+      "get": {
+        "tags": [
+          "Index"
+        ],
+        "summary": "Get All Publicacion",
+        "operationId": "get_all_publicacion_cmi_apigateway_index_index_get",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1,
+              "title": "Page"
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "default": 10,
+              "title": "Page Size"
+            }
+          },
+          {
+            "name": "titulo",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Titulo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedPublicacion"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cmi-apigateway/index/index/{foto_id}": {
+      "get": {
+        "tags": [
+          "Index"
+        ],
+        "summary": "Get Foto By Id",
+        "operationId": "get_foto_by_id_cmi_apigateway_index_index__foto_id__get",
+        "parameters": [
+          {
+            "name": "foto_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Foto Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Imagen en binario",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              },
+              "image/png": {
+
+              }
+            }
+          },
+          "404": {
+            "description": "Foto no encontrada"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cmi-apigateway/index/index/{publicacion_id}": {
+      "put": {
+        "tags": [
+          "Index"
+        ],
+        "summary": "Update Publicacion",
+        "operationId": "update_publicacion_cmi_apigateway_index_index__publicacion_id__put",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "publicacion_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Publicacion Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PublicacionUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EstadoResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Index"
+        ],
+        "summary": "Eliminar Publicacion",
+        "operationId": "eliminar_publicacion_cmi_apigateway_index_index__publicacion_id__delete",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "publicacion_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Publicacion Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EstadoResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cmi-apigateway/index/index/foto/{foto_id}": {
+      "delete": {
+        "tags": [
+          "Index"
+        ],
+        "summary": "Eliminar Foto",
+        "operationId": "eliminar_foto_cmi_apigateway_index_index_foto__foto_id__delete",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "foto_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Foto Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EstadoResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cmi-apigateway/reportes/reportes/personas": {
+      "get": {
+        "tags": [
+          "Reportes"
+        ],
+        "summary": "Descargar reporte de personas",
+        "operationId": "descargar_reporte_personas_cmi_apigateway_reportes_reportes_personas_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              },
+              "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": {
+
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/cmi-apigateway/reportes/reporte/asistencia/{reunion_id}": {
+      "get": {
+        "tags": [
+          "Reportes"
+        ],
+        "summary": "Descargar reporte de asistencia de un reunion",
+        "operationId": "descargar_reporte_personas_cmi_apigateway_reportes_reporte_asistencia__reunion_id__get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "reunion_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Reunion Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              },
+              "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": {
+
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cmi-apigateway/reunion/reunion/create": {
+      "post": {
+        "tags": [
+          "Reunion"
+        ],
+        "summary": "Create Reunion",
+        "operationId": "create_reunion_cmi_apigateway_reunion_reunion_create_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReunionCreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EstadoResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/cmi-apigateway/reunion/reunion/{reunion_id}": {
+      "get": {
+        "tags": [
+          "Reunion"
+        ],
+        "summary": "Get Reunion",
+        "operationId": "get_reunion_cmi_apigateway_reunion_reunion__reunion_id__get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "reunion_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Reunion Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReunionOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Reunion"
+        ],
+        "summary": "Update Reunion",
+        "operationId": "update_reunion_cmi_apigateway_reunion_reunion__reunion_id__put",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "reunion_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Reunion Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReunionUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EstadoResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Reunion"
+        ],
+        "summary": "Delete Reunion",
+        "operationId": "delete_reunion_cmi_apigateway_reunion_reunion__reunion_id__delete",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "reunion_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Reunion Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EstadoResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cmi-apigateway/reunion/reunion/": {
+      "get": {
+        "tags": [
+          "Reunion"
+        ],
+        "summary": "List Reuniones",
+        "operationId": "list_reuniones_cmi_apigateway_reunion_reunion__get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1,
+              "title": "Page"
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "default": 10,
+              "title": "Page Size"
+            }
+          },
+          {
+            "name": "titulo",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Titulo"
+            }
+          },
+          {
+            "name": "fecha",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Fecha"
+            }
+          },
+          {
+            "name": "horaInicio",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "time"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Horainicio"
+            }
+          },
+          {
+            "name": "horaFinal",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "time"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Horafinal"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedReunion"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cmi-apigateway/reunion/reunion/{reunion_id}/generate-asistencia-code": {
+      "patch": {
+        "tags": [
+          "Reunion"
+        ],
+        "summary": "Generate Asistencia Code",
+        "operationId": "generate_asistencia_code_cmi_apigateway_reunion_reunion__reunion_id__generate_asistencia_code_patch",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "reunion_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Reunion Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EstadoResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cmi-apigateway/reunion/reunion/{reunion_id}/delete-asistencia-code": {
+      "patch": {
+        "tags": [
+          "Reunion"
+        ],
+        "summary": "Eliminar Codigo Asistencia",
+        "operationId": "eliminar_codigo_asistencia_cmi_apigateway_reunion_reunion__reunion_id__delete_asistencia_code_patch",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "reunion_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Reunion Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EstadoResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cmi-apigateway/asistencia/asistencia/assign/{reunion_id}": {
+      "post": {
+        "tags": [
+          "Asistencia"
+        ],
+        "summary": "Assign Asistencia",
+        "operationId": "assign_asistencia_cmi_apigateway_asistencia_asistencia_assign__reunion_id__post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "reunion_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Reunion Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssingAsistencia"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EstadoResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cmi-apigateway/asistencia/asistencia/user-assign/{reunion_id}": {
+      "post": {
+        "tags": [
+          "Asistencia"
+        ],
+        "summary": "User Assign Asistencia",
+        "operationId": "user_assign_asistencia_cmi_apigateway_asistencia_asistencia_user_assign__reunion_id__post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "reunion_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Reunion Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserAssingAsistencia"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EstadoResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cmi-apigateway/asistencia/asistencia/{reunion_id}/{persona_id}": {
+      "delete": {
+        "tags": [
+          "Asistencia"
+        ],
+        "summary": "Delete Asistencia",
+        "operationId": "delete_asistencia_cmi_apigateway_asistencia_asistencia__reunion_id___persona_id__delete",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "reunion_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Reunion Id"
+            }
+          },
+          {
+            "name": "persona_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Persona Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EstadoResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cmi-apigateway/asistencia/asistencia/{reunion_id}/personas": {
+      "get": {
+        "tags": [
+          "Asistencia"
+        ],
+        "summary": "Get Personas With Asistencia",
+        "operationId": "get_personas_with_asistencia_cmi_apigateway_asistencia_asistencia__reunion_id__personas_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "reunion_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Reunion Id"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "description": "Número de página",
+              "default": 1,
+              "title": "Page"
+            },
+            "description": "Número de página"
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "description": "Cantidad de registros por página",
+              "default": 10,
+              "title": "Page Size"
+            },
+            "description": "Cantidad de registros por página"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedAsistenciaPersonas"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cmi-apigateway/asistencia/asistencia/{reunion_id}/persona/{persona_id}": {
+      "get": {
+        "tags": [
+          "Asistencia"
+        ],
+        "summary": "Get Personas With Asistencia",
+        "operationId": "get_personas_with_asistencia_cmi_apigateway_asistencia_asistencia__reunion_id__persona__persona_id__get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "reunion_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Reunion Id"
+            }
+          },
+          {
+            "name": "persona_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Persona Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AsistenciaIndividual"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AsignacionFamiliaResponse": {
+        "properties": {
+          "familia_id": {
+            "type": "integer",
+            "title": "Familia Id"
+          },
+          "personas_asignadas": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Personas Asignadas"
+          },
+          "personas_no_encontradas": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Personas No Encontradas"
+          },
+          "total_asignadas": {
+            "type": "integer",
+            "title": "Total Asignadas"
+          },
+          "total_no_encontradas": {
+            "type": "integer",
+            "title": "Total No Encontradas"
+          }
+        },
+        "type": "object",
+        "required": [
+          "familia_id",
+          "personas_asignadas",
+          "personas_no_encontradas",
+          "total_asignadas",
+          "total_no_encontradas"
+        ],
+        "title": "AsignacionFamiliaResponse"
+      },
+      "AsistenciaIndividual": {
+        "properties": {
+          "asistencia_persona": {
+            "type": "boolean",
+            "title": "Asistencia Persona"
+          }
+        },
+        "type": "object",
+        "required": [
+          "asistencia_persona"
+        ],
+        "title": "AsistenciaIndividual"
+      },
+      "AssingAsistencia": {
+        "properties": {
+          "persona_id": {
+            "type": "string",
+            "title": "Persona Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "persona_id"
+        ],
+        "title": "AssingAsistencia"
+      },
+      "AssingFamilia": {
+        "properties": {
+          "familia_id": {
+            "type": "integer",
+            "title": "Familia Id"
+          },
+          "personas_id": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Personas Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "familia_id",
+          "personas_id"
+        ],
+        "title": "AssingFamilia"
+      },
+      "Body_agregar_fotos_cmi_apigateway_index_index__publicacion_id__fotos_post": {
+        "properties": {
+          "fotos": {
+            "items": {
+              "type": "string",
+              "format": "binary"
+            },
+            "type": "array",
+            "title": "Fotos"
+          }
+        },
+        "type": "object",
+        "required": [
+          "fotos"
+        ],
+        "title": "Body_agregar_fotos_cmi_apigateway_index_index__publicacion_id__fotos_post"
+      },
+      "Body_create_publicacion_cmi_apigateway_index_index_create_post": {
+        "properties": {
+          "titulo": {
+            "type": "string",
+            "title": "Titulo"
+          },
+          "contenido": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Contenido"
+          },
+          "fotos": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string",
+                  "format": "binary"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Fotos"
+          }
+        },
+        "type": "object",
+        "required": [
+          "titulo"
+        ],
+        "title": "Body_create_publicacion_cmi_apigateway_index_index_create_post"
+      },
+      "Body_upload_excel_cmi_apigateway_familias_upload_excel_post": {
+        "properties": {
+          "file": {
+            "type": "string",
+            "format": "binary",
+            "title": "File"
+          }
+        },
+        "type": "object",
+        "required": [
+          "file"
+        ],
+        "title": "Body_upload_excel_cmi_apigateway_familias_upload_excel_post"
+      },
+      "Body_upload_excel_cmi_apigateway_parcialidad_upload_excel_post": {
+        "properties": {
+          "file": {
+            "type": "string",
+            "format": "binary",
+            "title": "File"
+          }
+        },
+        "type": "object",
+        "required": [
+          "file"
+        ],
+        "title": "Body_upload_excel_cmi_apigateway_parcialidad_upload_excel_post"
+      },
+      "Body_upload_excel_cmi_apigateway_personas_upload_excel_post": {
+        "properties": {
+          "file": {
+            "type": "string",
+            "format": "binary",
+            "title": "File"
+          }
+        },
+        "type": "object",
+        "required": [
+          "file"
+        ],
+        "title": "Body_upload_excel_cmi_apigateway_personas_upload_excel_post"
+      },
+      "CargaMasivaResponse": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "ok",
+              "error"
+            ],
+            "title": "Status"
+          },
+          "insertados": {
+            "type": "integer",
+            "title": "Insertados",
+            "default": 0
+          },
+          "total_procesados": {
+            "type": "integer",
+            "title": "Total Procesados",
+            "default": 0
+          },
+          "errores": {
+            "items": {
+              "$ref": "#/components/schemas/ErrorPersonaOut"
+            },
+            "type": "array",
+            "title": "Errores",
+            "default": []
+          }
+        },
+        "type": "object",
+        "required": [
+          "status"
+        ],
+        "title": "CargaMasivaResponse"
+      },
+      "EnumDocumento": {
+        "type": "string",
+        "enum": [
+          "CC",
+          "TI",
+          "CE"
+        ],
+        "title": "EnumDocumento"
+      },
+      "EnumEscolaridad": {
+        "type": "string",
+        "enum": [
+          "NI",
+          "PR",
+          "SE",
+          "UN"
+        ],
+        "title": "EnumEscolaridad"
+      },
+      "EnumParentesco": {
+        "type": "string",
+        "enum": [
+          "PA",
+          "MA",
+          "HI",
+          "AB",
+          "SO",
+          "CU",
+          "YR",
+          "CF",
+          "HE"
+        ],
+        "title": "EnumParentesco"
+      },
+      "EnumRol-Output": {
+        "type": "string",
+        "enum": [
+          "admin",
+          "usuario"
+        ],
+        "title": "EnumRol"
+      },
+      "EnumSexo": {
+        "type": "string",
+        "enum": [
+          "M",
+          "F"
+        ],
+        "title": "EnumSexo"
+      },
+      "ErrorPersonaOut": {
+        "properties": {
+          "fila": {
+            "type": "integer",
+            "title": "Fila"
+          },
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "mensaje": {
+            "type": "string",
+            "title": "Mensaje"
+          }
+        },
+        "type": "object",
+        "required": [
+          "fila",
+          "mensaje"
+        ],
+        "title": "ErrorPersonaOut"
+      },
+      "EstadoResponse": {
+        "properties": {
+          "estado": {
+            "type": "string",
+            "title": "Estado"
+          },
+          "message": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Message"
+          },
+          "data": {
+            "anyOf": [
+              {
+
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Data"
+          }
+        },
+        "type": "object",
+        "required": [
+          "estado",
+          "message"
+        ],
+        "title": "EstadoResponse"
+      },
+      "FamiliaCreate": {
+        "properties": {
+          "idFamilia": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Idfamilia"
+          }
+        },
+        "type": "object",
+        "title": "FamiliaCreate"
+      },
+      "FamiliaOut": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          },
+          "integrantes": {
+            "type": "integer",
+            "title": "Integrantes"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "integrantes"
+        ],
+        "title": "FamiliaOut"
+      },
+      "FotoOut": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "title": "FotoOut"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "LoginInput": {
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email",
+            "title": "Email",
+            "description": "Correo electrónico válido del usuario"
+          },
+          "password": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 8,
+            "title": "Password",
+            "description": "Contraseña con mínimo 8 caracteres"
+          }
+        },
+        "type": "object",
+        "required": [
+          "email",
+          "password"
+        ],
+        "title": "LoginInput"
+      },
+      "LoginResponse": {
+        "properties": {
+          "estado": {
+            "type": "string",
+            "title": "Estado"
+          },
+          "jwt": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Jwt"
+          },
+          "refresh_token": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Refresh Token"
+          }
+        },
+        "type": "object",
+        "required": [
+          "estado"
+        ],
+        "title": "LoginResponse"
+      },
+      "PaginatedAsistenciaPersonas": {
+        "properties": {
+          "total_items": {
+            "type": "integer",
+            "title": "Total Items"
+          },
+          "current_page": {
+            "type": "integer",
+            "title": "Current Page"
+          },
+          "total_pages": {
+            "type": "integer",
+            "title": "Total Pages"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/PersonaAsistenciaOut"
+            },
+            "type": "array",
+            "title": "Items"
+          }
+        },
+        "type": "object",
+        "required": [
+          "total_items",
+          "current_page",
+          "total_pages",
+          "items"
+        ],
+        "title": "PaginatedAsistenciaPersonas"
+      },
+      "PaginatedFamilias": {
+        "properties": {
+          "total_items": {
+            "type": "integer",
+            "title": "Total Items"
+          },
+          "current_page": {
+            "type": "integer",
+            "title": "Current Page"
+          },
+          "total_pages": {
+            "type": "integer",
+            "title": "Total Pages"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/FamiliaOut"
+            },
+            "type": "array",
+            "title": "Items"
+          }
+        },
+        "type": "object",
+        "required": [
+          "total_items",
+          "current_page",
+          "total_pages",
+          "items"
+        ],
+        "title": "PaginatedFamilias"
+      },
+      "PaginatedParcialidad": {
+        "properties": {
+          "total_items": {
+            "type": "integer",
+            "title": "Total Items"
+          },
+          "current_page": {
+            "type": "integer",
+            "title": "Current Page"
+          },
+          "total_pages": {
+            "type": "integer",
+            "title": "Total Pages"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/ParcialidadOut"
+            },
+            "type": "array",
+            "title": "Items"
+          }
+        },
+        "type": "object",
+        "required": [
+          "total_items",
+          "current_page",
+          "total_pages",
+          "items"
+        ],
+        "title": "PaginatedParcialidad"
+      },
+      "PaginatedPersonas": {
+        "properties": {
+          "total_items": {
+            "type": "integer",
+            "title": "Total Items"
+          },
+          "current_page": {
+            "type": "integer",
+            "title": "Current Page"
+          },
+          "total_pages": {
+            "type": "integer",
+            "title": "Total Pages"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/PersonaOut"
+            },
+            "type": "array",
+            "title": "Items"
+          }
+        },
+        "type": "object",
+        "required": [
+          "total_items",
+          "current_page",
+          "total_pages",
+          "items"
+        ],
+        "title": "PaginatedPersonas"
+      },
+      "PaginatedPublicacion": {
+        "properties": {
+          "total_items": {
+            "type": "integer",
+            "title": "Total Items"
+          },
+          "current_page": {
+            "type": "integer",
+            "title": "Current Page"
+          },
+          "total_pages": {
+            "type": "integer",
+            "title": "Total Pages"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/PublicacionOut"
+            },
+            "type": "array",
+            "title": "Items"
+          }
+        },
+        "type": "object",
+        "required": [
+          "total_items",
+          "current_page",
+          "total_pages",
+          "items"
+        ],
+        "title": "PaginatedPublicacion"
+      },
+      "PaginatedReunion": {
+        "properties": {
+          "total_items": {
+            "type": "integer",
+            "title": "Total Items"
+          },
+          "current_page": {
+            "type": "integer",
+            "title": "Current Page"
+          },
+          "total_pages": {
+            "type": "integer",
+            "title": "Total Pages"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/ReunionOut"
+            },
+            "type": "array",
+            "title": "Items"
+          }
+        },
+        "type": "object",
+        "required": [
+          "total_items",
+          "current_page",
+          "total_pages",
+          "items"
+        ],
+        "title": "PaginatedReunion"
+      },
+      "PaginatedUsuario": {
+        "properties": {
+          "total_items": {
+            "type": "integer",
+            "title": "Total Items"
+          },
+          "current_page": {
+            "type": "integer",
+            "title": "Current Page"
+          },
+          "total_pages": {
+            "type": "integer",
+            "title": "Total Pages"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/UsuarioOut"
+            },
+            "type": "array",
+            "title": "Items"
+          }
+        },
+        "type": "object",
+        "required": [
+          "total_items",
+          "current_page",
+          "total_pages",
+          "items"
+        ],
+        "title": "PaginatedUsuario"
+      },
+      "ParcialidadCreate": {
+        "properties": {
+          "nombre_parcialidad": {
+            "type": "string",
+            "title": "Nombre Parcialidad"
+          }
+        },
+        "type": "object",
+        "required": [
+          "nombre_parcialidad"
+        ],
+        "title": "ParcialidadCreate"
+      },
+      "ParcialidadOut": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          },
+          "nombre": {
+            "type": "string",
+            "title": "Nombre"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "nombre"
+        ],
+        "title": "ParcialidadOut"
+      },
+      "PersonaAsistenciaOut": {
+        "properties": {
+          "Numero_documento": {
+            "type": "string",
+            "title": "Numero Documento"
+          },
+          "Nombre": {
+            "type": "string",
+            "title": "Nombre"
+          },
+          "Apellido": {
+            "type": "string",
+            "title": "Apellido"
+          },
+          "Asistencia": {
+            "type": "boolean",
+            "title": "Asistencia"
+          }
+        },
+        "type": "object",
+        "required": [
+          "Numero_documento",
+          "Nombre",
+          "Apellido",
+          "Asistencia"
+        ],
+        "title": "PersonaAsistenciaOut"
+      },
+      "PersonaCreate": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "maxLength": 20,
+            "title": "Id"
+          },
+          "tipoDocumento": {
+            "$ref": "#/components/schemas/EnumDocumento"
+          },
+          "nombre": {
+            "type": "string",
+            "maxLength": 50,
+            "title": "Nombre"
+          },
+          "apellido": {
+            "type": "string",
+            "maxLength": 50,
+            "title": "Apellido"
+          },
+          "fechaNacimiento": {
+            "type": "string",
+            "format": "date",
+            "title": "Fechanacimiento"
+          },
+          "parentesco": {
+            "$ref": "#/components/schemas/EnumParentesco"
+          },
+          "sexo": {
+            "$ref": "#/components/schemas/EnumSexo"
+          },
+          "profesion": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 100
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Profesion"
+          },
+          "escolaridad": {
+            "$ref": "#/components/schemas/EnumEscolaridad"
+          },
+          "direccion": {
+            "type": "string",
+            "maxLength": 200,
+            "title": "Direccion"
+          },
+          "telefono": {
+            "type": "string",
+            "maxLength": 20,
+            "title": "Telefono"
+          },
+          "idFamilia": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Idfamilia"
+          },
+          "idParcialidad": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Idparcialidad"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "tipoDocumento",
+          "nombre",
+          "apellido",
+          "fechaNacimiento",
+          "parentesco",
+          "sexo",
+          "escolaridad",
+          "direccion",
+          "telefono",
+          "idFamilia",
+          "idParcialidad"
+        ],
+        "title": "PersonaCreate"
+      },
+      "PersonaOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "tipoDocumento": {
+            "$ref": "#/components/schemas/EnumDocumento"
+          },
+          "nombre": {
+            "type": "string",
+            "title": "Nombre"
+          },
+          "apellido": {
+            "type": "string",
+            "title": "Apellido"
+          },
+          "fechaNacimiento": {
+            "type": "string",
+            "format": "date",
+            "title": "Fechanacimiento"
+          },
+          "parentesco": {
+            "$ref": "#/components/schemas/EnumParentesco"
+          },
+          "sexo": {
+            "$ref": "#/components/schemas/EnumSexo"
+          },
+          "profesion": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Profesion"
+          },
+          "escolaridad": {
+            "$ref": "#/components/schemas/EnumEscolaridad"
+          },
+          "direccion": {
+            "type": "string",
+            "title": "Direccion"
+          },
+          "telefono": {
+            "type": "string",
+            "title": "Telefono"
+          },
+          "activo": {
+            "type": "boolean",
+            "title": "Activo"
+          },
+          "idFamilia": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Idfamilia"
+          },
+          "idParcialidad": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Idparcialidad"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "tipoDocumento",
+          "nombre",
+          "apellido",
+          "fechaNacimiento",
+          "parentesco",
+          "sexo",
+          "profesion",
+          "escolaridad",
+          "direccion",
+          "telefono",
+          "activo",
+          "idFamilia",
+          "idParcialidad"
+        ],
+        "title": "PersonaOut"
+      },
+      "PersonaUpdate": {
+        "properties": {
+          "tipoDocumento": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/EnumDocumento"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "nombre": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 50
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Nombre"
+          },
+          "apellido": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 50
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Apellido"
+          },
+          "fechaNacimiento": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Fechanacimiento"
+          },
+          "parentesco": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/EnumParentesco"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "sexo": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/EnumSexo"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "profesion": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 100
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Profesion"
+          },
+          "escolaridad": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/EnumEscolaridad"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "direccion": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 200
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Direccion"
+          },
+          "telefono": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 20
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Telefono"
+          },
+          "idFamilia": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Idfamilia"
+          },
+          "idParcialidad": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Idparcialidad"
+          }
+        },
+        "type": "object",
+        "title": "PersonaUpdate"
+      },
+      "PublicacionOut": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          },
+          "titulo": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Titulo"
+          },
+          "contenido": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Contenido"
+          },
+          "fotos": {
+            "items": {
+              "$ref": "#/components/schemas/FotoOut"
+            },
+            "type": "array",
+            "title": "Fotos",
+            "default": []
+          }
+        },
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "title": "PublicacionOut"
+      },
+      "PublicacionUpdate": {
+        "properties": {
+          "titulo": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Titulo"
+          },
+          "contenido": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Contenido"
+          }
+        },
+        "type": "object",
+        "title": "PublicacionUpdate"
+      },
+      "RecoveryPassword": {
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email",
+            "title": "Email",
+            "description": "Correo electrónico válido del usuario"
+          }
+        },
+        "type": "object",
+        "required": [
+          "email"
+        ],
+        "title": "RecoveryPassword"
+      },
+      "RefreshRequest": {
+        "properties": {
+          "refresh_token": {
+            "type": "string",
+            "title": "Refresh Token",
+            "description": "Token de refresco JWT"
+          }
+        },
+        "type": "object",
+        "required": [
+          "refresh_token"
+        ],
+        "title": "RefreshRequest"
+      },
+      "ResetPassword": {
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email",
+            "title": "Email",
+            "description": "Correo electrónico válido del usuario"
+          },
+          "code": {
+            "type": "string",
+            "title": "Code",
+            "description": "codigo de recuperacion"
+          }
+        },
+        "type": "object",
+        "required": [
+          "email",
+          "code"
+        ],
+        "title": "ResetPassword"
+      },
+      "ReunionCreate": {
+        "properties": {
+          "titulo": {
+            "type": "string",
+            "title": "Titulo"
+          },
+          "fecha": {
+            "type": "string",
+            "format": "date",
+            "title": "Fecha"
+          },
+          "horaInicio": {
+            "type": "string",
+            "format": "time",
+            "title": "Horainicio"
+          },
+          "horaFinal": {
+            "type": "string",
+            "format": "time",
+            "title": "Horafinal"
+          }
+        },
+        "type": "object",
+        "required": [
+          "titulo",
+          "fecha",
+          "horaInicio",
+          "horaFinal"
+        ],
+        "title": "ReunionCreate"
+      },
+      "ReunionOut": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          },
+          "titulo": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Titulo"
+          },
+          "fecha": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Fecha"
+          },
+          "horaInicio": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Horainicio"
+          },
+          "horaFinal": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Horafinal"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "title": "ReunionOut"
+      },
+      "ReunionUpdate": {
+        "properties": {
+          "titulo": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Titulo"
+          },
+          "fecha": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Fecha"
+          },
+          "horaInicio": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Horainicio"
+          },
+          "horaFinal": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Horafinal"
+          }
+        },
+        "type": "object",
+        "title": "ReunionUpdate"
+      },
+      "UpdatePassword": {
+        "properties": {
+          "password": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 8,
+            "title": "Password",
+            "description": "Contraseña con mínimo 8 caracteres"
+          }
+        },
+        "type": "object",
+        "required": [
+          "password"
+        ],
+        "title": "UpdatePassword"
+      },
+      "UserAssingAsistencia": {
+        "properties": {
+          "codigo_asistencia": {
+            "type": "string",
+            "title": "Codigo Asistencia"
+          },
+          "persona_id": {
+            "type": "string",
+            "title": "Persona Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "codigo_asistencia",
+          "persona_id"
+        ],
+        "title": "UserAssingAsistencia"
+      },
+      "UsuarioCreate": {
+        "properties": {
+          "email": {
+            "type": "string",
+            "maxLength": 100,
+            "format": "email",
+            "title": "Email",
+            "description": "Correo del usuario"
+          },
+          "password": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 8,
+            "title": "Password",
+            "description": "Contraseña con mínimo 8 caracteres"
+          },
+          "personaId": {
+            "type": "string",
+            "title": "Personaid",
+            "description": "UUID de la persona asociada"
+          },
+          "rol": {
+            "$ref": "#/components/schemas/app__models__inputs__usuario__user_create__EnumRol",
+            "description": "Rol del usuario"
+          }
+        },
+        "type": "object",
+        "required": [
+          "email",
+          "password",
+          "personaId",
+          "rol"
+        ],
+        "title": "UsuarioCreate"
+      },
+      "UsuarioOut": {
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email",
+            "title": "Email"
+          },
+          "personaId": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Personaid"
+          },
+          "rol": {
+            "$ref": "#/components/schemas/EnumRol-Output"
+          }
+        },
+        "type": "object",
+        "required": [
+          "email",
+          "personaId",
+          "rol"
+        ],
+        "title": "UsuarioOut"
+      },
+      "UsuarioUpdate": {
+        "properties": {
+          "email": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "email"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Email"
+          }
+        },
+        "type": "object",
+        "title": "UsuarioUpdate"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      },
+      "app__models__inputs__usuario__user_create__EnumRol": {
+        "type": "string",
+        "enum": [
+          "usuario",
+          "admin"
+        ],
+        "title": "EnumRol"
+      },
+      "app__persistence__model__enum__EnumRol": {
+        "type": "string",
+        "enum": [
+          "admin",
+          "usuario"
+        ],
+        "title": "EnumRol"
+      }
+    },
+    "securitySchemes": {
+      "HTTPBearer": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}
