@@ -651,51 +651,6 @@
             }
           }
         }
-      },
-      "delete": {
-        "tags": [
-          "Persona"
-        ],
-        "summary": "Delete Persona",
-        "operationId": "delete_persona_cmi_apigateway_personas__id__delete",
-        "security": [
-          {
-            "HTTPBearer": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Id"
-            }
-          }
-        ],
-        "responses": {
-          "202": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/EstadoResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
       }
     },
     "/cmi-apigateway/personas/": {
@@ -964,6 +919,53 @@
         ]
       }
     },
+    "/cmi-apigateway/personas/unassign-family/{persona_id}": {
+      "patch": {
+        "tags": [
+          "Persona"
+        ],
+        "summary": "Saca una persona de su familia (pone idFamilia = NULL)",
+        "operationId": "unassign_family_user_cmi_apigateway_personas_unassign_family__persona_id__patch",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "persona_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Persona Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EstadoResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/cmi-apigateway/personas/upload-excel": {
       "post": {
         "tags": [
@@ -988,6 +990,52 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/CargaMasivaResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/cmi-apigateway/personas/register-defuncion": {
+      "patch": {
+        "tags": [
+          "Persona"
+        ],
+        "summary": "Registra la fecha de defunción de una persona",
+        "operationId": "register_defuncion_cmi_apigateway_personas_register_defuncion_patch",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PersonaDefuncion"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EstadoResponse"
                 }
               }
             }
@@ -1252,6 +1300,349 @@
             "HTTPBearer": []
           }
         ]
+      }
+    },
+    "/cmi-apigateway/familias/search": {
+      "get": {
+        "tags": [
+          "Familia"
+        ],
+        "summary": "Search Familias",
+        "operationId": "search_familias_cmi_apigateway_familias_search_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Query"
+            }
+          },
+          {
+            "name": "parcialidad_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Parcialidad Id"
+            }
+          },
+          {
+            "name": "rango_miembros",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "pattern": "^(1-3|4-6|7\\+)$"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Rango Miembros"
+            }
+          },
+          {
+            "name": "estado",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/EnumEstadoFamilia"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Estado"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1,
+              "title": "Page"
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "default": 10,
+              "title": "Page Size"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedFamilias"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cmi-apigateway/familias/get/leader-data": {
+      "get": {
+        "tags": [
+          "Familia"
+        ],
+        "summary": "Get Familias Leaderdata",
+        "operationId": "get_familias_leaderdata_cmi_apigateway_familias_get_leader_data_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1,
+              "title": "Page"
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "default": 10,
+              "title": "Page Size"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cmi-apigateway/familias/estadisticas-generales": {
+      "get": {
+        "tags": [
+          "Familia"
+        ],
+        "summary": "Get Estadisticas Generales",
+        "operationId": "get_estadisticas_generales_cmi_apigateway_familias_estadisticas_generales_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/cmi-apigateway/familias/{id_familia}/resumen": {
+      "get": {
+        "tags": [
+          "Familia"
+        ],
+        "summary": "Get Familia Resumen",
+        "operationId": "get_familia_resumen_cmi_apigateway_familias__id_familia__resumen_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id_familia",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Id Familia"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cmi-apigateway/familias/{id_familia}/miembros": {
+      "get": {
+        "tags": [
+          "Familia"
+        ],
+        "summary": "Get Miembros Familia",
+        "operationId": "get_miembros_familia_cmi_apigateway_familias__id_familia__miembros_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id_familia",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Id Familia"
+            }
+          },
+          {
+            "name": "query",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Query"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1,
+              "title": "Page"
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "default": 10,
+              "title": "Page Size"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/cmi-apigateway/parcialidad/create": {
@@ -2023,10 +2414,87 @@
         }
       }
     },
+    "/cmi-apigateway/reportes/reporte/familia/{familia_id}": {
+      "get": {
+        "tags": [
+          "Reportes"
+        ],
+        "summary": "Descargar reporte de miembros de una familia",
+        "operationId": "descargar_reporte_familia_cmi_apigateway_reportes_reporte_familia__familia_id__get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "familia_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Familia Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              },
+              "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": {
+
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cmi-apigateway/reportes/reportes/resumen": {
+      "get": {
+        "tags": [
+          "Reportes"
+        ],
+        "summary": "Obtener resumen general del dashboard",
+        "description": "Devuelve estadísticas consolidadas para el dashboard (personas, familias, reuniones, edades, etc.)",
+        "operationId": "obtener_resumen_dashboard_cmi_apigateway_reportes_reportes_resumen_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
     "/cmi-apigateway/reunion/reunion/create": {
       "post": {
         "tags": [
-          "Reunion"
+          "Reunión"
         ],
         "summary": "Create Reunion",
         "operationId": "create_reunion_cmi_apigateway_reunion_reunion_create_post",
@@ -2072,15 +2540,10 @@
     "/cmi-apigateway/reunion/reunion/{reunion_id}": {
       "get": {
         "tags": [
-          "Reunion"
+          "Reunión"
         ],
         "summary": "Get Reunion",
         "operationId": "get_reunion_cmi_apigateway_reunion_reunion__reunion_id__get",
-        "security": [
-          {
-            "HTTPBearer": []
-          }
-        ],
         "parameters": [
           {
             "name": "reunion_id",
@@ -2117,7 +2580,7 @@
       },
       "put": {
         "tags": [
-          "Reunion"
+          "Reunión"
         ],
         "summary": "Update Reunion",
         "operationId": "update_reunion_cmi_apigateway_reunion_reunion__reunion_id__put",
@@ -2172,7 +2635,7 @@
       },
       "delete": {
         "tags": [
-          "Reunion"
+          "Reunión"
         ],
         "summary": "Delete Reunion",
         "operationId": "delete_reunion_cmi_apigateway_reunion_reunion__reunion_id__delete",
@@ -2219,7 +2682,7 @@
     "/cmi-apigateway/reunion/reunion/": {
       "get": {
         "tags": [
-          "Reunion"
+          "Reunión"
         ],
         "summary": "List Reuniones",
         "operationId": "list_reuniones_cmi_apigateway_reunion_reunion__get",
@@ -2318,6 +2781,38 @@
               ],
               "title": "Horafinal"
             }
+          },
+          {
+            "name": "ubicacion",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Ubicacion"
+            }
+          },
+          {
+            "name": "estado",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/EstadoReunion"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Estado"
+            }
           }
         ],
         "responses": {
@@ -2344,13 +2839,39 @@
         }
       }
     },
-    "/cmi-apigateway/reunion/reunion/{reunion_id}/generate-asistencia-code": {
+    "/cmi-apigateway/reunion/reunion/estadisticas/por-estado": {
+      "get": {
+        "tags": [
+          "Reunión"
+        ],
+        "summary": "Estadisticas Por Estado",
+        "operationId": "estadisticas_por_estado_cmi_apigateway_reunion_reunion_estadisticas_por_estado_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReunionesPorEstado"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/cmi-apigateway/reunion/reunion/{reunion_id}/abrir": {
       "patch": {
         "tags": [
-          "Reunion"
+          "Reunión"
         ],
-        "summary": "Generate Asistencia Code",
-        "operationId": "generate_asistencia_code_cmi_apigateway_reunion_reunion__reunion_id__generate_asistencia_code_patch",
+        "summary": "Abrir Reunion",
+        "operationId": "abrir_reunion_cmi_apigateway_reunion_reunion__reunion_id__abrir_patch",
         "security": [
           {
             "HTTPBearer": []
@@ -2391,13 +2912,13 @@
         }
       }
     },
-    "/cmi-apigateway/reunion/reunion/{reunion_id}/delete-asistencia-code": {
+    "/cmi-apigateway/reunion/reunion/{reunion_id}/cerrar": {
       "patch": {
         "tags": [
-          "Reunion"
+          "Reunión"
         ],
-        "summary": "Eliminar Codigo Asistencia",
-        "operationId": "eliminar_codigo_asistencia_cmi_apigateway_reunion_reunion__reunion_id__delete_asistencia_code_patch",
+        "summary": "Cerrar Reunion",
+        "operationId": "cerrar_reunion_cmi_apigateway_reunion_reunion__reunion_id__cerrar_patch",
         "security": [
           {
             "HTTPBearer": []
@@ -2523,7 +3044,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UserAssingAsistencia"
+                "$ref": "#/components/schemas/UserRegisterAsistencia"
               }
             }
           }
@@ -2637,11 +3158,9 @@
             "schema": {
               "type": "integer",
               "minimum": 1,
-              "description": "Número de página",
               "default": 1,
               "title": "Page"
-            },
-            "description": "Número de página"
+            }
           },
           {
             "name": "page_size",
@@ -2651,11 +3170,57 @@
               "type": "integer",
               "maximum": 100,
               "minimum": 1,
-              "description": "Cantidad de registros por página",
               "default": 10,
               "title": "Page Size"
-            },
-            "description": "Cantidad de registros por página"
+            }
+          },
+          {
+            "name": "numero_documento",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Numero Documento"
+            }
+          },
+          {
+            "name": "nombre",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Nombre"
+            }
+          },
+          {
+            "name": "apellido",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Apellido"
+            }
           }
         ],
         "responses": {
@@ -2687,8 +3252,8 @@
         "tags": [
           "Asistencia"
         ],
-        "summary": "Get Personas With Asistencia",
-        "operationId": "get_personas_with_asistencia_cmi_apigateway_asistencia_asistencia__reunion_id__persona__persona_id__get",
+        "summary": "Get Asistencia Persona",
+        "operationId": "get_asistencia_persona_cmi_apigateway_asistencia_asistencia__reunion_id__persona__persona_id__get",
         "security": [
           {
             "HTTPBearer": []
@@ -2720,7 +3285,188 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AsistenciaIndividual"
+
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cmi-apigateway/censo/generar": {
+      "post": {
+        "tags": [
+          "Censo"
+        ],
+        "summary": "Generar censo anual",
+        "operationId": "generar_censo_cmi_apigateway_censo_generar_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CensoGenerateIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/cmi-apigateway/censo/procesos": {
+      "get": {
+        "tags": [
+          "Censo"
+        ],
+        "summary": "Listar procesos de censos",
+        "operationId": "listar_procesos_cmi_apigateway_censo_procesos_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1,
+              "title": "Page"
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "default": 10,
+              "title": "Page Size"
+            }
+          },
+          {
+            "name": "anio",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Anio"
+            }
+          },
+          {
+            "name": "estado",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Estado"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cmi-apigateway/censo/exportar/{censo_proceso_id}": {
+      "get": {
+        "tags": [
+          "Censo"
+        ],
+        "summary": "Exportar censo a Excel",
+        "operationId": "exportar_censo_cmi_apigateway_censo_exportar__censo_proceso_id__get",
+        "parameters": [
+          {
+            "name": "censo_proceso_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Censo Proceso Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
                 }
               }
             }
@@ -2779,19 +3525,6 @@
           "total_no_encontradas"
         ],
         "title": "AsignacionFamiliaResponse"
-      },
-      "AsistenciaIndividual": {
-        "properties": {
-          "asistencia_persona": {
-            "type": "boolean",
-            "title": "Asistencia Persona"
-          }
-        },
-        "type": "object",
-        "required": [
-          "asistencia_persona"
-        ],
-        "title": "AsistenciaIndividual"
       },
       "AssingAsistencia": {
         "properties": {
@@ -2960,6 +3693,35 @@
         ],
         "title": "CargaMasivaResponse"
       },
+      "CensoGenerateIn": {
+        "properties": {
+          "anio": {
+            "type": "integer",
+            "maximum": 2100,
+            "minimum": 2000,
+            "title": "Anio",
+            "description": "Año del censo a generar (por ejemplo, 2025)"
+          },
+          "usuario": {
+            "type": "string",
+            "title": "Usuario",
+            "description": "Usuario responsable que inicia el proceso del censo"
+          },
+          "esPrueba": {
+            "type": "boolean",
+            "title": "Esprueba",
+            "description": "Indica si el censo es de prueba o real",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "anio",
+          "usuario"
+        ],
+        "title": "CensoGenerateIn",
+        "description": "Modelo de entrada para generar un censo anual."
+      },
       "EnumDocumento": {
         "type": "string",
         "enum": [
@@ -2978,6 +3740,14 @@
           "UN"
         ],
         "title": "EnumEscolaridad"
+      },
+      "EnumEstadoFamilia": {
+        "type": "string",
+        "enum": [
+          "ACTIVA",
+          "INACTIVA"
+        ],
+        "title": "EnumEstadoFamilia"
       },
       "EnumParentesco": {
         "type": "string",
@@ -3075,6 +3845,15 @@
         ],
         "title": "EstadoResponse"
       },
+      "EstadoReunion": {
+        "type": "string",
+        "enum": [
+          "PROGRAMADA",
+          "EN_CURSO",
+          "CERRADA"
+        ],
+        "title": "EstadoReunion"
+      },
       "FamiliaCreate": {
         "properties": {
           "idFamilia": {
@@ -3086,11 +3865,37 @@
                 "type": "null"
               }
             ],
-            "title": "Idfamilia"
+            "title": "Idfamilia",
+            "description": "ID de la familia (opcional, se puede asignar manualmente)"
+          },
+          "representante_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Representante Id",
+            "description": "ID de la persona líder o representante de la familia"
+          },
+          "estado": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/EnumEstadoFamilia"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Estado de la familia (ACTIVA/INACTIVA)",
+            "default": "ACTIVA"
           }
         },
         "type": "object",
-        "title": "FamiliaCreate"
+        "title": "FamiliaCreate",
+        "description": "Modelo de entrada para crear una Familia."
       },
       "FamiliaOut": {
         "properties": {
@@ -3098,15 +3903,36 @@
             "type": "integer",
             "title": "Id"
           },
-          "integrantes": {
-            "type": "integer",
-            "title": "Integrantes"
+          "representante_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Representante Id"
+          },
+          "estado": {
+            "$ref": "#/components/schemas/EnumEstadoFamilia"
+          },
+          "representante": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/PersonaOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "type": "object",
         "required": [
           "id",
-          "integrantes"
+          "representante_id",
+          "estado"
         ],
         "title": "FamiliaOut"
       },
@@ -3196,6 +4022,14 @@
       },
       "PaginatedAsistenciaPersonas": {
         "properties": {
+          "personas_presentes": {
+            "type": "integer",
+            "title": "Personas Presentes"
+          },
+          "personas_ausentes": {
+            "type": "integer",
+            "title": "Personas Ausentes"
+          },
           "total_items": {
             "type": "integer",
             "title": "Total Items"
@@ -3218,6 +4052,8 @@
         },
         "type": "object",
         "required": [
+          "personas_presentes",
+          "personas_ausentes",
           "total_items",
           "current_page",
           "total_pages",
@@ -3474,8 +4310,9 @@
         "properties": {
           "id": {
             "type": "string",
-            "maxLength": 20,
-            "title": "Id"
+            "maxLength": 36,
+            "title": "Id",
+            "description": "Documento o identificador único"
           },
           "tipoDocumento": {
             "$ref": "#/components/schemas/EnumDocumento"
@@ -3535,18 +4372,26 @@
                 "type": "null"
               }
             ],
-            "title": "Idfamilia"
+            "title": "Idfamilia",
+            "description": "ID de la familia a la que pertenece"
           },
           "idParcialidad": {
+            "type": "integer",
+            "title": "Idparcialidad",
+            "description": "ID de la parcialidad"
+          },
+          "fechaDefuncion": {
             "anyOf": [
               {
-                "type": "integer"
+                "type": "string",
+                "format": "date"
               },
               {
                 "type": "null"
               }
             ],
-            "title": "Idparcialidad"
+            "title": "Fechadefuncion",
+            "description": "Fecha de defunción si la persona ha fallecido"
           }
         },
         "type": "object",
@@ -3560,11 +4405,29 @@
           "sexo",
           "escolaridad",
           "direccion",
-          "telefono",
-          "idFamilia",
-          "idParcialidad"
+          "telefono"
         ],
-        "title": "PersonaCreate"
+        "title": "PersonaCreate",
+        "description": "Modelo de entrada para crear una Persona."
+      },
+      "PersonaDefuncion": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "fechaDefuncion": {
+            "type": "string",
+            "format": "date",
+            "title": "Fechadefuncion"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "fechaDefuncion"
+        ],
+        "title": "PersonaDefuncion"
       },
       "PersonaOut": {
         "properties": {
@@ -3589,7 +4452,14 @@
             "title": "Fechanacimiento"
           },
           "parentesco": {
-            "$ref": "#/components/schemas/EnumParentesco"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/EnumParentesco"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "sexo": {
             "$ref": "#/components/schemas/EnumSexo"
@@ -3616,9 +4486,17 @@
             "type": "string",
             "title": "Telefono"
           },
-          "activo": {
-            "type": "boolean",
-            "title": "Activo"
+          "fechaDefuncion": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Fechadefuncion"
           },
           "idFamilia": {
             "anyOf": [
@@ -3631,16 +4509,15 @@
             ],
             "title": "Idfamilia"
           },
-          "idParcialidad": {
+          "parcialidad": {
             "anyOf": [
               {
-                "type": "integer"
+                "$ref": "#/components/schemas/ParcialidadOut"
               },
               {
                 "type": "null"
               }
-            ],
-            "title": "Idparcialidad"
+            ]
           }
         },
         "type": "object",
@@ -3656,9 +4533,9 @@
           "escolaridad",
           "direccion",
           "telefono",
-          "activo",
+          "fechaDefuncion",
           "idFamilia",
-          "idParcialidad"
+          "parcialidad"
         ],
         "title": "PersonaOut"
       },
@@ -3775,17 +4652,6 @@
               }
             ],
             "title": "Telefono"
-          },
-          "idFamilia": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Idfamilia"
           },
           "idParcialidad": {
             "anyOf": [
@@ -3943,6 +4809,10 @@
             "type": "string",
             "format": "time",
             "title": "Horafinal"
+          },
+          "ubicacion": {
+            "type": "string",
+            "title": "Ubicacion"
           }
         },
         "type": "object",
@@ -3950,7 +4820,8 @@
           "titulo",
           "fecha",
           "horaInicio",
-          "horaFinal"
+          "horaFinal",
+          "ubicacion"
         ],
         "title": "ReunionCreate"
       },
@@ -4006,6 +4877,27 @@
               }
             ],
             "title": "Horafinal"
+          },
+          "ubicacion": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ubicacion"
+          },
+          "estado": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/EstadoReunion"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "type": "object",
@@ -4062,10 +4954,55 @@
               }
             ],
             "title": "Horafinal"
+          },
+          "ubicacion": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ubicacion"
+          },
+          "editable": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Editable"
           }
         },
         "type": "object",
         "title": "ReunionUpdate"
+      },
+      "ReunionesPorEstado": {
+        "properties": {
+          "programadas": {
+            "type": "integer",
+            "title": "Programadas"
+          },
+          "en_curso": {
+            "type": "integer",
+            "title": "En Curso"
+          },
+          "cerradas": {
+            "type": "integer",
+            "title": "Cerradas"
+          }
+        },
+        "type": "object",
+        "required": [
+          "programadas",
+          "en_curso",
+          "cerradas"
+        ],
+        "title": "ReunionesPorEstado"
       },
       "UpdatePassword": {
         "properties": {
@@ -4083,23 +5020,29 @@
         ],
         "title": "UpdatePassword"
       },
-      "UserAssingAsistencia": {
+      "UserRegisterAsistencia": {
         "properties": {
-          "codigo_asistencia": {
+          "numero_documento": {
             "type": "string",
-            "title": "Codigo Asistencia"
+            "title": "Numero Documento"
           },
-          "persona_id": {
+          "nombre_completo": {
             "type": "string",
-            "title": "Persona Id"
+            "title": "Nombre Completo"
+          },
+          "correo_electronico": {
+            "type": "string",
+            "format": "email",
+            "title": "Correo Electronico"
           }
         },
         "type": "object",
         "required": [
-          "codigo_asistencia",
-          "persona_id"
+          "numero_documento",
+          "nombre_completo",
+          "correo_electronico"
         ],
-        "title": "UserAssingAsistencia"
+        "title": "UserRegisterAsistencia"
       },
       "UsuarioCreate": {
         "properties": {
@@ -4109,13 +5052,6 @@
             "format": "email",
             "title": "Email",
             "description": "Correo del usuario"
-          },
-          "password": {
-            "type": "string",
-            "maxLength": 64,
-            "minLength": 8,
-            "title": "Password",
-            "description": "Contraseña con mínimo 8 caracteres"
           },
           "personaId": {
             "type": "string",
@@ -4130,7 +5066,6 @@
         "type": "object",
         "required": [
           "email",
-          "password",
           "personaId",
           "rol"
         ],
